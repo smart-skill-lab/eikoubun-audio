@@ -10,6 +10,11 @@
   h1{font-size:18px;margin:0 0 4px}
   .sub{font-size:13px;color:#86868b;margin:0 0 24px}
   audio{width:100%}
+  .speed{margin-top:18px}
+  .speed-label{font-size:12px;color:#86868b;margin-bottom:8px}
+  .btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .btns button{font-size:15px;padding:8px 14px;border:1px solid #d2d2d7;border-radius:10px;background:#fff;color:#1d1d1f;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .btns button.active{background:#0071e3;border-color:#0071e3;color:#fff;font-weight:600}
   .tip{font-size:12px;color:#86868b;margin-top:20px;line-height:1.6}
 </style>
 </head>
@@ -17,8 +22,28 @@
   <div class="card">
     <h1>英語長文読解 本科 第8回</h1>
     <p class="sub">アメリカ開拓地の女性 ― 音読用音声</p>
-    <audio controls preload="metadata" src="lesson08.m4a"></audio>
-    <p class="tip">▶ を押すと英文の朗読が流れます。<br>スラッシュ読み・白文と一緒に練習しよう。</p>
+    <audio id="player" controls preload="metadata" src="lesson08.m4a"></audio>
+    <div class="speed">
+      <div class="speed-label">再生スピード</div>
+      <div class="btns">
+        <button data-rate="0.75">0.75x</button>
+        <button data-rate="1" class="active">1.0x</button>
+        <button data-rate="1.25">1.25x</button>
+        <button data-rate="1.5">1.5x</button>
+      </div>
+    </div>
+    <p class="tip">▶ を押すと英文の朗読が流れます。<br>慣れるまではゆっくり、慣れたら速めて練習しよう。</p>
   </div>
+  <script>
+    var player=document.getElementById('player');
+    var btns=document.querySelectorAll('.btns button');
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        player.playbackRate=parseFloat(b.dataset.rate);
+        btns.forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
